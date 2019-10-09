@@ -1,7 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+var cors = require('cors');
 
+app.use(cors());
 app.use(bodyParser.json());
 
 // Setting for Hyperledger Fabric
@@ -39,8 +41,9 @@ try {// Create a new file system based wallet for managing identities.
                          
          const result = await contract.evaluateTransaction('queryAllCars');
          console.log(`Transaction has been evaluated, result is: ${result.toString()}`);
-         res.status(200).json({response: result.toString()});} 
-
+         res.status(200).json({response: result.toString()}); 
+	 //res.status(200).json(result.toString());
+	}
 catch (error) {
          console.error(`Failed to evaluate transaction: ${error}`);
          res.status(500).json({error: error});
